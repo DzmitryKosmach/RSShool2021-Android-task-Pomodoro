@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Pomodoro</string>
+    <string name="item_button_stop">STOP</string>
+    <string name="item_button_start">START</string>
+</resources>

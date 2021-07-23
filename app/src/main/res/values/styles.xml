@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="styleButton">
+        <item name="android:paddingStart">@dimen/paddingButtonLeftRight</item>
+        <item name="android:paddingLeft">@dimen/paddingButtonLeftRight</item>
+        <item name="android:paddingEnd">@dimen/paddingButtonLeftRight</item>
+        <item name="android:paddingRight">@dimen/paddingButtonLeftRight</item>
+        <item name="android:textSize">@dimen/textSizeButton</item>
+        <item name="android:backgroundTint">@color/main_red</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+</resources>
