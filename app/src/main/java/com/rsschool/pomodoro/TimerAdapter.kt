@@ -1,7 +1,5 @@
 package com.rsschool.pomodoro
 
-import android.os.CountDownTimer
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
@@ -12,7 +10,6 @@ import com.rsschool.pomodoro.databinding.RecyclerViewItemBinding
 
 class TimerAdapter(context: MainActivity) : ListAdapter<Timer, TimerViewHolder>(itemComparator) {
 
-    private var currentTimerId = 0
     private var _context = context;
     private var viewModel: MainViewModel? = null;
 
@@ -34,36 +31,6 @@ class TimerAdapter(context: MainActivity) : ListAdapter<Timer, TimerViewHolder>(
     override fun onBindViewHolder(holder: TimerViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
-    override fun onViewDetachedFromWindow(holder: TimerViewHolder) {
-        super.onViewDetachedFromWindow(holder)
-        Log.i("DDD_onViewDetached", holder.toString())
-        val timer = requireNotNull(holder.timer)
-        if (timer.isStarted) {
-            viewModel?.timerJob?.cancel()
-            currentTimerId = timer.id
- //           viewModel?.currentViewHolder = null
-
-//            Старт таймера без визуализации
-//                    viewModel.timerJobHiden.
-        }
-
-    }
-
-    override fun onViewAttachedToWindow(holder: TimerViewHolder) {
-        super.onViewAttachedToWindow(holder)
-        val timer = requireNotNull(holder.timer)
-        Log.i("DDD_onViewAttached", holder.toString())
-        if (timer.isStarted ) {
-//        if (timer.isStarted && timer.id == currentTimerId && viewModel?.tickJob!!.isCancelled ) {
-            holder.binding.itemButton.text = _context.resources.getString(R.string.item_button_stop)
-
-            viewModel?.currentViewHolder = holder
-            viewModel?.continueTimer()
-            //Отключаем таймер без визуализации и включаем с визуализацией
-        }
-    }
-
 
     private companion object {
 

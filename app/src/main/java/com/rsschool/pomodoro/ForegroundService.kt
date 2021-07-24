@@ -32,7 +32,6 @@ class ForegroundService : Service() {
             .setContentIntent(getPendingIntent())
             .setSilent(true)
             .setSmallIcon(R.drawable.circle)
-           // .setSmallIcon(R.drawable.ic_baseline_access_alarm_24)
     }
 
     override fun onCreate() {
@@ -147,7 +146,6 @@ class ForegroundService : Service() {
     }
 
     private companion object {
-
         private const val CHANNEL_ID = "Channel_ID"
         private const val NOTIFICATION_ID = 777
         private const val INTERVAL = 1000L

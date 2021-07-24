@@ -28,20 +28,12 @@ class MainActivity : AppCompatActivity(), TimerListener, LifecycleObserver {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        if (savedInstanceState != null) {
-//            val timersList = savedInstanceState.getParcelableArrayList<Timer>(KEY_LIST)
-//            Log.i("DDD_2: ", timersList.toString())
-//            timerAdapter.submitList(timersList)
-//        }
-
-
         ProcessLifecycleOwner.get().lifecycle.addObserver(this)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        //timers = viewModel!!.timers
 
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
@@ -66,28 +58,7 @@ class MainActivity : AppCompatActivity(), TimerListener, LifecycleObserver {
 
         }
 
-        //timerAdapter.submitList(timers)
-
-//        lifecycleScope.launch(Dispatchers.Main) {
-//            while (true) {
-//                binding.timerView.text = (System.currentTimeMillis() - startTime).displayTime()
-//                delay(INTERVAL)
-//            }
-//        }
-
     }
-
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        if (timerAdapter.currentList.size > 0) {
-//            outState.putParcelableArrayList(
-//                KEY_LIST, timerAdapter.currentList.toList() as
-//                        ArrayList<out Parcelable>
-//            )
-//            Log.i("DDD_1: ", timerAdapter.currentList.toString())
-//        }
-//
-//    }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onAppBackgrounded() {
@@ -141,8 +112,6 @@ class MainActivity : AppCompatActivity(), TimerListener, LifecycleObserver {
     }
 
     private companion object {
-
-       // private const val INTERVAL = 10L
         private const val KEY_LIST = "key_list"
     }
 }

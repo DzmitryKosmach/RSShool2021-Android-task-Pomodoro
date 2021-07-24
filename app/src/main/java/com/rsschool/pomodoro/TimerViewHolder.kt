@@ -17,15 +17,10 @@ class TimerViewHolder(
 
     var timer: Timer? = null
     private val viewModel = ViewModelProvider(context).get(MainViewModel::class.java)
-    private var timerJob = viewModel.timerJob
-    //private val currentTimer = requireNotNull(viewModel.currentTimer)
 
     fun bind(timer: Timer) {
         binding.timerText.text = timer.currentMs.displayTime()
         binding.progressBar.progress = getPercentProgress(timer)
-
-       // Log.i("DDD_Bind", this.toString())
-
 
         this.timer = timer
 
@@ -40,7 +35,6 @@ class TimerViewHolder(
 
     private fun initButtonsListeners(timer: Timer) {
         binding.itemButton.setOnClickListener {
-            Log.i("DDD_IsStarted", timer.isStarted.toString())
             if (timer.isStarted) {
                 viewModel.tickJob?.cancel()
                 viewModel.timerJob?.cancel()
@@ -48,17 +42,16 @@ class TimerViewHolder(
             } else {
                 if (viewModel.currentTimer != null) {
                     val startedTimer = requireNotNull(viewModel.currentTimer)
+                    viewModel.tickJob?.cancel()
+                    viewModel.timerJob?.cancel()
                     listener.stop(startedTimer.id, startedTimer.currentMs)
                 }
-                viewModel.currentTimer = timer
-                viewModel.tickJob?.cancel()
-                viewModel.timerJob?.cancel()
                 listener.start(timer.id)
             }
         }
 
         binding.imageButtonDelete.setOnClickListener {
-            if (timer.isStarted){
+            if (timer.isStarted) {
                 viewModel.tickJob?.cancel()
                 viewModel.timerJob?.cancel()
             }
@@ -66,10 +59,9 @@ class TimerViewHolder(
         }
     }
 
-    private fun startTimer(timer: Timer) {
+    fun startTimer(timer: Timer) {
         binding.itemButton.text = context.resources.getString(R.string.item_button_stop)
 
-        //viewModel.timerJob?.cancel()
         viewModel.currentViewHolder = this
         viewModel.currentTimer = timer
 
@@ -79,33 +71,18 @@ class TimerViewHolder(
         viewModel.timerJob?.cancel()
         viewModel.continueTimer()
 
+        binding.itemButton.text = context.resources.getString(R.string.item_button_stop)
         binding.imageViewShape.isInvisible = false
         (binding.imageViewShape.background as? AnimationDrawable)?.start()
 
     }
 
     private fun stopTimer() {
-
         binding.itemButton.text = context.resources.getString(R.string.item_button_start);
-
-      //  viewModel.timerJob?.cancel()
-
-        //countDownTimer?.cancel()
 
         binding.imageViewShape.isInvisible = false
         (binding.imageViewShape.background as? AnimationDrawable)?.stop()
 
     }
 
-
-    private companion object {
-
-//        private var countDownTimer: CountDownTimer? = null
-//            get() = field
-//            set(value) {
-//                Log.i("DDD_set_countDownTimer", value.toString())
-//                field = value
-//            }
-//        private var currentViewHolderTimer: TimerViewHolder? = null
-    }
 }
